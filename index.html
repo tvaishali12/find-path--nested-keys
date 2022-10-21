@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body></body>
+  <script>
+    //Q-   Write method findPath
+    //    Should take two params:
+    //    - object
+    //    - keys separated by dots as string
+    //    - Return value if it exists at that path inside the object, else return undefined ?
+
+    //   Algo----
+    // step-1   convert the object key (path) into array using .split(".")
+    // step-2   Iterate a loop over the splited keys.
+    //step-3    using has own property , check whether the splited key is present in the object
+    //          or not.
+    //step-4     if it is there give their value ,else undefined.
+
+    var obj = {
+      a: {
+        b: {
+          c: 12,
+          j: false,
+        },
+        k: null,
+      },
+    };
+
+    const findPath = (object, path) => {
+      const splitKeys = path.split(".");
+      for (let i = 0; i < splitKeys.length; i++) {
+        if (object.hasOwnProperty(splitKeys[i])) {
+          object = object[splitKeys[i]];
+        } else {
+          return undefined;
+        }
+      }
+      return object;
+    };
+    console.log(findPath(obj, "a.b.c")); // 12
+    console.log(findPath(obj, "a.b")); // {c: 12, j: false}
+    console.log(findPath(obj, "a.b.d")); // undefined//.
+    console.log(findPath(obj, "a.c")); // undefined
+    console.log(findPath(obj, "a.b.c.d")); // undefined
+    console.log(findPath(obj, "a.b.c.d.e")); // undefined
+    console.log(findPath(obj, "a.b.j")); //false
+    console.log(findPath(obj, "a.b.j.k")); //undefined
+    console.log(findPath(obj, "a.k")); //null
+  </script>
+</html>
